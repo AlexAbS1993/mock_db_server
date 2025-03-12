@@ -1,0 +1,17 @@
+{
+  "name": "purchaser",
+  "version": "0.1.0",
+  "description": "Сервер для мок-базы, чтобы протестировать shooter",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "shooter",
+    "mock",
+    "database",
+    "postgres"
+  ],
+  "author": "Alex Abetov <abetovalex93@gmail.com>",
+  "license": "UNLICENSED"
+}
