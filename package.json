@@ -4,7 +4,9 @@
   "description": "Сервер для мок-базы, чтобы протестировать shooter",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "dev": "node --env-file=.env.dev index.js",
+    "start": "node --env-file=.env index.js"
   },
   "keywords": [
     "shooter",
@@ -13,5 +15,12 @@
     "postgres"
   ],
   "author": "Alex Abetov <abetovalex93@gmail.com>",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
