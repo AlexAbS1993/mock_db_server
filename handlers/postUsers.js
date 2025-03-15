@@ -5,7 +5,7 @@ class PostUsers {
         this.#name = body.name
     }
     async handle(db){
-        await db.query(`INSERT INTO ${this.#USERS} VALUES(DEFAULT, ${this.name})`)
+        await db.query(`INSERT INTO ${this.#USERS} VALUES(DEFAULT, ${this.#name})`)
         return users
     }
 }
