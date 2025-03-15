@@ -3,6 +3,7 @@ let cors = require('cors')
 let {Pool} = require('pg')
 const { USERS, PRODUCTS } = require('./routes/routes')
 const GetUsers = require('./handlers/usersHandler')
+const PostUsers = require('./handlers/postUsers')
 
 let app = express()
 app.use(cors({
@@ -28,6 +29,22 @@ app.get(`/${PRODUCTS}`, async(req, res) => {
     res.end('products test')
 })
 
+app.post(`/${USERS}`, async (req, res) => {
+    console.log('Post Users')
+    let body = req.body
+    try{
+        new PostUsers(body).handle(db)
+    }
+    catch(e){
+        res.end(e.message)
+    }
+    res.end('Success')
+})
+app.post(`/${PRODUCTS}`, async (req, res) => {
+    console.log('Post Products mock')
+    let body = req.body
+    res.end('Success')
+})
 app.listen(process.env.PORT, () => {
     console.log('Запущено на порте '+ process.env.PORT)
 })
