@@ -5,8 +5,13 @@ class PostUsers {
         this.#name = body.name
     }
     async handle(db){
-        await db.query(`INSERT INTO ${this.#USERS} VALUES(DEFAULT, ${this.#name})`)
-        return users
+        const query = {
+            text: 'INSERT INTO ' + this.#USERS + '(name) VALUES($1)',
+            values: [this.#name],
+          }
+           
+        await db.query(query)
+        return
     }
 }
 

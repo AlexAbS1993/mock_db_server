@@ -9,7 +9,8 @@ let app = express()
 app.use(cors({
     origin: 'localhost'
 }))
-
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 let db = new Pool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -18,6 +19,7 @@ let db = new Pool({
     database: process.env.DB_NAME,
 })
 
+db.connect()
 app.get(`/${USERS}`, async (req, res) => {
     console.log('get users')
     let users = new GetUsers(req.query).handle(db)    
