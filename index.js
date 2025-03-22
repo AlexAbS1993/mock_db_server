@@ -5,6 +5,9 @@ const { USERS, PRODUCTS } = require('./routes/routes')
 const GetUsers = require('./handlers/usersHandler')
 const PostUsers = require('./handlers/postUsers')
 
+
+const APP_NAME = 'test_server_for_shooting'
+
 let app = express()
 app.use(cors({
     origin: 'localhost'
@@ -17,6 +20,7 @@ let db = new Pool({
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
     database: process.env.DB_NAME,
+    application_name: APP_NAME
 })
 
 db.connect()
