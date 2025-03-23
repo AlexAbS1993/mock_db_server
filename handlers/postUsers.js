@@ -1,6 +1,7 @@
 class PostUsers {
     #USERS = 'users'
     #name
+    
     constructor(body){
         this.#name = body.name
     }
