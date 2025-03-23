@@ -17,5 +17,19 @@ describe('Модель является абстракцией сущносте�
                 expect(model.getTitle()).toBe(ENTITIE_TITLE)
             })
         })
+        describe('Модель может добавлять в себя новые поля и возвращать их список', () => {
+            test('Модель включает в себя новое поле с помощью метода addField', () => {
+                model.addField('name')
+                let fields = model.getFields()
+                expect(fields[0]).toBe('name')
+            })
+            test('Модель не допускает включения в себя одинаковых полей и удаляет дупликаты', () => {
+                model.fields.push('name')
+                model.fields.push('age')
+                model.fields.push('name')
+                model.cutDuplicates()
+                expect(model.getFields().length).toBe(2)
+            })
+        })
     }
 )
