@@ -9,7 +9,16 @@ class DB_Model_DEV {
         'empty_string': 'Пустая строка недопустима'
     }
     constructor(title){
+        this.validate_constructor(title)
         this.title = title
+    }
+    validate_constructor(title){
+        if (typeof title !== 'string'){
+            throw new Error(this.errors.must_be_a_string)
+        }
+        if (title.length === 0){
+            throw new Error(this.errors.empty_string)
+        }
     }
     addFields(fields){
         this.addFields_validate(fields)
