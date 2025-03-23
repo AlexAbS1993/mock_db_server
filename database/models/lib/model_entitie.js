@@ -14,4 +14,9 @@ class DB_Model {
     getFields(){
         return this.#entitie.getFields()
     }
+    getTitle(){
+        return this.#entitie.title
+    }
 }
+
+module.exports = DB_Model

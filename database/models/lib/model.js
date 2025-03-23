@@ -1,6 +1,6 @@
 class DB_Model_DEV {
     fields = []
-    rules
+    rules = {}
     title
     errors = {
         'must_be_an_array': 'Требуется массив',
