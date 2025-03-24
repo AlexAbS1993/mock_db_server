@@ -12,14 +12,14 @@ class PostUsers {
         let values = this.constructValues()
         let dollars = this.constructDollars()
         const query = {
-            text: this.createQuery(fields, dollars),
+            text: this.createQueryString(fields, dollars),
             values,
           }
            
         await db.query(query)
         return
     }
-    createQuery(fields, dollars){
+    createQueryString(fields, dollars){
         return `INSERT INTO ${this.#USERS}(${fields.join(', ')}) VALUES(${dollars.join(', ')})`
     }
     constructValues(){
