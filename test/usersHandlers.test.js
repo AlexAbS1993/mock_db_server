@@ -16,7 +16,7 @@ describe('Handlers для Users занимаются реализацией за
     beforeEach(() => {
         usersPostHandler = new PostUsers(BODY, model)
     })
-    describe('Суть Handlerа в том, чтобы совершить операцию с помощью метода handle. Внутри происходят небольшие операции.', () => {
+    describe('POST HANDLER. Суть Handlerа в том, чтобы совершить операцию с помощью метода handle. Внутри происходят небольшие операции.', () => {
         test('Handler умеет конструировать список значений', () => {
             let values = usersPostHandler.constructValues()
             expect(Array.isArray(values)).toBe(true)
@@ -31,8 +31,39 @@ describe('Handlers для Users занимаются реализацией за
         })
         test('Handler правильно создаёт запрос к базе данных', () => {
             const EXPECTED_RESULT = 'INSERT INTO users(name, age) VALUES($1, $2)'
-            let str = usersPostHandler.createQuery(usersPostHandler.model.getFields(), usersPostHandler.constructDollars())
+            let str = usersPostHandler.createQueryString(usersPostHandler.model.getFields(), usersPostHandler.constructDollars())
             expect(str).toMatch(EXPECTED_RESULT)
+        })
+        test('Error. При отсутствии одного из аргументов выдается ошибка во время создания сущности', () => {
+            try{
+                new PostUsers(BODY)
+            }
+            catch(e){
+                expect(e.message).toMatch(usersPostHandler.errors.argument_missed)
+            }
+            try {
+                new PostUsers()
+            }
+            catch(e){
+                expect(e.message).toMatch(usersPostHandler.errors.argument_missed)
+            }
+        })
+        test('Error. Если передана модель, не являющаяся результатом создания фабрики, то выдается ошибка', () => {
+            try {
+                new PostUsers(BODY, {model: true})
+            }
+            catch(e){
+                expect(e.message).toMatch(usersPostHandler.errors.wrong_type)
+            }
+        })
+        test('Error. Если передано тело запроса, не соответствующее требованиям для вставки по модели, то выдается ошибка на этапе конструирования значения', () => {
+            try {
+                let handler = new PostUsers(WRONG_BODY, model)
+                handler.constructValues()
+            }
+            catch(e){
+                expect(e.message).toMatch(usersPostHandler.errors.field_required)
+            }
         })
     })
 })

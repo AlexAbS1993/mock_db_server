@@ -1,11 +1,25 @@
+const DB_Model = require("../database/models/lib/model_entitie")
+
 class PostUsers {
+    #models_instance_name = 'DB_Model'
     #USERS = 'users'  
     errors = {
-        'field_required': 'В теле запроса не хватает поля'
+        'field_required': 'В теле запроса не хватает поля',
+        'argument_missed': 'Инициализация невозможна. Отсутствует аругмент',
+        'wrong_type': 'Недопустимый тип, требуется '
     }
     constructor(body, model){
+        this.validateArguments(body, model)
         this.model = model
         this.body = body
+    }
+    validateArguments(body, model){
+        if (!body || !model){
+            throw new Error(this.errors.argument_missed)
+        }
+        if (!(model instanceof DB_Model)){
+            throw new Error(this.errors.wrong_type + this.#models_instance_name)
+        }
     }
     async handle(db){
         let fields = this.model.getFields()
